@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
+import { CarsRepositoryMock } from "@modules/cars/repositories/mocks/CarsRepositoryMock";
+
 import { CreateCarUseCase } from "./CreateCarUseCase";
 
 class CreateCarController {

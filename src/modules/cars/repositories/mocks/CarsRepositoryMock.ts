@@ -1,6 +1,7 @@
+import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 
-import { ICarsRepository } from "../ICarsRepository";
+import { ICarFilters, ICarsRepository } from "../ICarsRepository";
 
 class CarsRepositoryMock implements ICarsRepository {
   private cars: Car[] = [];
@@ -30,6 +31,29 @@ class CarsRepositoryMock implements ICarsRepository {
 
   async findByLicensePlate(licensePlate: string): Promise<Car> {
     return this.cars.find((car) => car.license_plate === licensePlate);
+  }
+
+  async findAvailable(filters?: ICarFilters): Promise<Car[]> {
+    if (!filters) return this.cars;
+    const {
+      category_id = "",
+      brand = "",
+      name = "",
+    } = filters || ({} as ICarFilters);
+    const cars = this.cars
+      .filter((car) => car.available)
+      .filter(
+        (car) =>
+          car.category_id === category_id ||
+          car.brand === brand ||
+          car.name === name
+      );
+    return cars;
+  }
+
+  async findById(id: string): Promise<Car> {
+    const car = await this.cars.find((car) => car.id === id);
+    return car;
   }
 }
 
