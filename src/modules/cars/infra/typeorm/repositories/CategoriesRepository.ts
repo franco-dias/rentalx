@@ -11,7 +11,6 @@ class CategoriesRepository implements ICategoriesRepository {
 
   constructor() {
     this.repository = getRepository(Category);
-    console.log("constructor");
   }
 
   async list(): Promise<Category[]> {

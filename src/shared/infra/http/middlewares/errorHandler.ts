@@ -10,7 +10,6 @@ export default function errorHandler(
   next: NextFunction
 ): Response {
   if (err instanceof AppError) {
-    console.log(JSON.stringify(err));
     return response.status(err.statusCode).json({
       message: err.message,
     });

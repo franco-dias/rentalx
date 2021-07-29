@@ -14,7 +14,6 @@ async function ensureAuthenticated(
   next: NextFunction
 ): Promise<void> {
   const { authorization } = req.headers;
-  console.log(authorization);
   if (!authorization) {
     throw new AppError("Token is missing", 401);
   }

@@ -55,6 +55,11 @@ class CarsRepositoryMock implements ICarsRepository {
     const car = await this.cars.find((car) => car.id === id);
     return car;
   }
+
+  async updateAvailable(car_id: string, available: boolean): Promise<void> {
+    const index = this.cars.findIndex((car) => car.id === car_id);
+    this.cars[index].available = available;
+  }
 }
 
 export { CarsRepositoryMock };
